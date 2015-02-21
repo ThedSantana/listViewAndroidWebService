@@ -15,7 +15,7 @@ import java.util.List;
 
 
 /**
- * Created by julianolustosa on 15/02/15.
+ * Created by carlosfm on 15/02/15.
  */
 public class LinhasDeOnibusListFragment extends Fragment {
 
