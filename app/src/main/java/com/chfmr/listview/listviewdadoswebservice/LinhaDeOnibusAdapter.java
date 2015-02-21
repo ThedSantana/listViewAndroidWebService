@@ -49,8 +49,7 @@ public class LinhaDeOnibusAdapter extends BaseAdapter {
         ViewHolder holder = null;
         if(convertView == null){
             Log.d("NGVL", "View Nova => position: " + position);
-            convertView = LayoutInflater.from(contexto)
-                    .inflate(R.layout.item_linha, null);
+            convertView = LayoutInflater.from(contexto).inflate(R.layout.item_linha, null);
 
         holder = new ViewHolder();
         holder.imgLogo = (ImageView) convertView.findViewById(R.id.imgLogo);

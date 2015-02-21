@@ -23,10 +23,9 @@ import android.util.Log;
 
 public class AppHttp {
 
-    public static final String LINHAS_ONIBUS_URL_JSON = "http://192.168.1.100:8081/bragmobi/linhas-de-onibus/offset/0/limit/10";
     private static final Object APPBUS = "APPBUS";
 
-    private static HttpURLConnection connect(String urlWebService) throws IOException {
+    public static HttpURLConnection connect(String urlWebService) throws IOException {
 
         final int SEGUNDOS = 1000;
         URL url = new URL(urlWebService);
@@ -52,7 +51,7 @@ public class AppHttp {
         }
     }
 
-    private static String bytesToString (InputStream is) throws IOException {
+    public static String bytesToString (InputStream is) throws IOException {
         Log.i("APPBUS", "bytesToString");
         byte[] buffer = new byte[1024];
 
@@ -66,56 +65,4 @@ public class AppHttp {
         return new String(bufferMemory.toByteArray(), "UTF-8");
     }
 
-    /* Metodos que precisam ser colocados na class LinhasDeOnibus */
-
-    public static List<LinhaDeOnibus> carregarLinhaOnibusJson(){
-
-        try{
-            HttpURLConnection connecting = connect(LINHAS_ONIBUS_URL_JSON);
-            int resposta = connecting.getResponseCode();
-
-            Log.i("APPBUS", "resposta connect:" + resposta);
-            Log.i("APPBUS", "HttpURLConnection.HTTP_OK:" + HttpURLConnection.HTTP_OK);
-
-            if(resposta == HttpURLConnection.HTTP_OK){
-                InputStream is = connecting.getInputStream();
-                JSONObject json = new JSONObject(bytesToString(is));
-                Log.i("APPBUS", "carregouLinhaOnibusJson" + json);
-                return readJsonLineBus(json);
-            }
-
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static List<LinhaDeOnibus> readJsonLineBus(JSONObject json) throws JSONException {
-
-        List<LinhaDeOnibus> listaDeLinhaDeOnibus = new ArrayList<LinhaDeOnibus>();
-
-        JSONArray jsonLinhasDeOnibus = json.getJSONArray("linhas_de_onibus");
-
-        Log.i("APPBUS", "jsonLinhasDeOnibus:" + jsonLinhasDeOnibus.length());
-
-        for(int contador = 0; contador < jsonLinhasDeOnibus.length(); contador++){
-
-            Log.i("APPBUS", "readJsonLineBus contador:" + contador);
-
-            JSONObject objetoLinhaDeOnibus = jsonLinhasDeOnibus.getJSONObject(contador);
-
-            LinhaDeOnibus linha = new LinhaDeOnibus(
-                    objetoLinhaDeOnibus.getString("nome"),
-                    objetoLinhaDeOnibus.getInt("numero"),
-                    objetoLinhaDeOnibus.getString("sentido_ida"),
-                    objetoLinhaDeOnibus.getString("sendito_volta"),
-                    "http://www.guiadebraganca.com.br/public/imagens/icon_facebook.png"
-                    // objetoLinhaDeOnibus.getString("imagem")
-            );
-
-            listaDeLinhaDeOnibus.add(linha);
-        }
-
-        return listaDeLinhaDeOnibus;
-    }
 }

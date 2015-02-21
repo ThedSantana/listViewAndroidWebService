@@ -91,7 +91,7 @@ public class LinhasDeOnibusListFragment extends Fragment {
         @Override
         protected List<LinhaDeOnibus> doInBackground(Void... strings) {
             //return LivroHttp.carregarLivrosJson();
-            return AppHttp.carregarLinhaOnibusJson();
+            return LinhaDeOnibus.carregarLinhaOnibusJson();
         }
 
         @Override
