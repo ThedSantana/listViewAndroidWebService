@@ -12,6 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 /**
@@ -69,10 +71,12 @@ public class LinhaDeOnibusAdapter extends ArrayAdapter<LinhaDeOnibus> {
         }
 
         // 3
-        Resources res = getContext().getResources();
-        Drawable draw = res.getDrawable(R.drawable.ic_launcher);
+       // Resources res = getContext().getResources();
+       // Drawable draw = res.getDrawable(R.drawable.ic_launcher);
 
-        holder.imgLogo.setImageDrawable(draw);
+        Picasso.with(getContext()).load("http://www.novatec.com.br/figuras/capas/9788575223154.gif").into(holder.imgLogo);
+
+       // holder.imgLogo.setImageDrawable(draw);
         holder.txtNome.setText(linha.nome);
         holder.txtNumero.setText(linha.nome);
         holder.txtSentidoIda.setText(linha.sentido_id);
